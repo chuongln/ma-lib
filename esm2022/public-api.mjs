@@ -1,0 +1,7 @@
+/*
+ * Public API Surface of ma-lib
+ */
+export * from './lib/ma-lib.service';
+export * from './lib/ma-lib.component';
+export * from './lib/ma-lib.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL21hLWxpYi9zcmMvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRztBQUVILGNBQWMsc0JBQXNCLENBQUM7QUFDckMsY0FBYyx3QkFBd0IsQ0FBQztBQUN2QyxjQUFjLHFCQUFxQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBtYS1saWJcbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2xpYi9tYS1saWIuc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9tYS1saWIuY29tcG9uZW50JztcbmV4cG9ydCAqIGZyb20gJy4vbGliL21hLWxpYi5tb2R1bGUnO1xuIl19
