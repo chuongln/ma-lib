@@ -3,7 +3,7 @@ import { Injectable, Component, NgModule } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as i1 from 'primeng/api';
 
-class MaService {
+class MaLibService {
     constructor(messageService) {
         this.messageService = messageService;
         this.loadingSubject = new BehaviorSubject(false);
@@ -25,10 +25,10 @@ class MaService {
     getLoading() {
         return this.loadingSubject.asObservable();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaService, deps: [{ token: i1.MessageService }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaService, providedIn: 'root' }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibService, deps: [{ token: i1.MessageService }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibService, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaService, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibService, decorators: [{
             type: Injectable,
             args: [{
                     providedIn: 'root'
@@ -78,5 +78,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
  * Generated bundle index. Do not edit.
  */
 
-export { MaLibComponent, MaLibModule, MaService };
+export { MaLibComponent, MaLibModule, MaLibService };
 //# sourceMappingURL=ma-lib.mjs.map
