@@ -1,0 +1,45 @@
+import { EventEmitter, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
+import { PaginatorState } from 'primeng/paginator';
+import { Observable } from 'rxjs';
+import { Column, ISearchListInput } from './table.interface';
+import * as i0 from "@angular/core";
+export declare class TableComponent implements OnDestroy {
+    datas: any[];
+    havePaginator: boolean;
+    cols: Column[];
+    autoSearchAfterViewInit: boolean;
+    selectionMode: 'single' | 'multiple' | null;
+    inputSearch: any;
+    scrollHeight: string;
+    getList$: (input: ISearchListInput) => Observable<any>;
+    placeFooter: 'bottom' | 'top';
+    onRowSelected: EventEmitter<any>;
+    selectedRow: any;
+    offset: number;
+    limit: number;
+    currentPage: number;
+    totalRecords: number;
+    optionPaginators: {
+        label: string;
+        value: number;
+    }[];
+    private searchTrigger$;
+    private destroy$;
+    private isTriggeringSearch;
+    isLoading: boolean;
+    totalWidth: number;
+    templateCellTemplate: TemplateRef<any>;
+    constructor();
+    ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    onPageChange(event: PaginatorState): void;
+    onRowsChange(): void;
+    private triggerSearch;
+    private executeSearch;
+    onRowSelect(event: any): void;
+    ngOnDestroy(): void;
+    calculateColumnWidths(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TableComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<TableComponent, "app-table", never, { "datas": { "alias": "datas"; "required": false; }; "havePaginator": { "alias": "havePaginator"; "required": false; }; "cols": { "alias": "cols"; "required": false; }; "autoSearchAfterViewInit": { "alias": "autoSearchAfterViewInit"; "required": false; }; "selectionMode": { "alias": "selectionMode"; "required": false; }; "inputSearch": { "alias": "inputSearch"; "required": false; }; "scrollHeight": { "alias": "scrollHeight"; "required": false; }; "getList$": { "alias": "getList$"; "required": false; }; "placeFooter": { "alias": "placeFooter"; "required": false; }; }, { "onRowSelected": "onRowSelected"; }, ["templateCellTemplate"], ["[footer]", "[footer]"], true, never>;
+}
+export declare function modifyDateByUTC(date: Date, isGetMethod?: boolean): Date;
