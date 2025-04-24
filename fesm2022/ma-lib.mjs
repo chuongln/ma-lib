@@ -2,6 +2,7 @@ import * as i0 from '@angular/core';
 import { Injectable, Component, Directive, Input, NgModule } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as i1 from 'primeng/api';
+import { CommonModule } from '@angular/common';
 
 class MaLibService {
     constructor(messageService) {
@@ -103,9 +104,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
 class MaLibModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
     static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, declarations: [MaLibComponent,
-            MaPermissionDirective], exports: [MaLibComponent,
+            MaPermissionDirective], imports: [CommonModule], exports: [MaLibComponent,
             MaPermissionDirective] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, imports: [CommonModule] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, decorators: [{
             type: NgModule,
@@ -114,7 +115,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
                         MaLibComponent,
                         MaPermissionDirective
                     ],
-                    imports: [],
+                    imports: [
+                        CommonModule
+                    ],
                     exports: [
                         MaLibComponent,
                         MaPermissionDirective
