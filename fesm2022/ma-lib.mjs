@@ -223,13 +223,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
 class MaLibModule {
     static forRoot(environment) {
         return {
-            ngModule: MaService,
+            ngModule: MaLibModule,
             providers: [
                 {
                     provide: 'environment',
                     useValue: environment,
-                },
-                MaService
+                }
             ],
         };
     }
