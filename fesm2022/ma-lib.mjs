@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import * as i1 from 'primeng/api';
 import { CommonModule } from '@angular/common';
 
-class MaLibService {
+class MaService {
     constructor(messageService) {
         this.messageService = messageService;
         this.loadingSubject = new BehaviorSubject(false);
@@ -36,10 +36,10 @@ class MaLibService {
         const list = Array.isArray(p) ? p : [p];
         return list.some(x => this.permissions.includes(x));
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibService, deps: [{ token: i1.MessageService }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibService, providedIn: 'root' }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaService, deps: [{ token: i1.MessageService }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaService, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibService, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaService, decorators: [{
             type: Injectable,
             args: [{
                     providedIn: 'root'
@@ -86,7 +86,7 @@ class MaPermissionDirective {
             }
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaPermissionDirective, deps: [{ token: i0.ElementRef }, { token: i0.Renderer2 }, { token: MaLibService }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaPermissionDirective, deps: [{ token: i0.ElementRef }, { token: i0.Renderer2 }, { token: MaService }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.2.12", type: MaPermissionDirective, selector: "[maPermission]", inputs: { requiredPermissions: ["maPermission", "requiredPermissions"], mode: "mode" }, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaPermissionDirective, decorators: [{
@@ -94,7 +94,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
             args: [{
                     selector: '[maPermission]'
                 }]
-        }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }, { type: MaLibService }]; }, propDecorators: { requiredPermissions: [{
+        }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }, { type: MaService }]; }, propDecorators: { requiredPermissions: [{
                 type: Input,
                 args: ['maPermission']
             }], mode: [{
@@ -128,10 +128,18 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
 /*
  * Public API Surface of ma-lib
  */
+// export * from './lib/component/card/card.component';
+// export * from './lib/component/config/config.component';
+// export * from './lib/component/table/table.component';
+// export * from './lib/component/form/date-picker/date-picker.component';
+// export * from './lib/component/form/date-picker/date-range-picker.component';
+// export * from './lib/component/form/dropdown/dropdown.component';
+// export * from './lib/component/form/filters/filters.component';
+// export * from './lib/component/form/control/control.component';
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MaLibComponent, MaLibModule, MaLibService, MaPermissionDirective };
+export { MaLibComponent, MaLibModule, MaPermissionDirective, MaService };
 //# sourceMappingURL=ma-lib.mjs.map
