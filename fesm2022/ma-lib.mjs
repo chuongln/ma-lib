@@ -8,10 +8,10 @@ import * as i1$1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser';
 import * as i1$3 from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
-import * as i1$2 from 'primeng/card';
-import { CardModule } from 'primeng/card';
 import * as i3 from 'primeng/tooltip';
 import { TooltipModule } from 'primeng/tooltip';
+import * as i1$2 from 'primeng/card';
+import { CardModule } from 'primeng/card';
 import * as i2$2 from 'primeng/button';
 import { ButtonModule } from 'primeng/button';
 import * as i4 from 'primeng/dialog';
@@ -119,6 +119,8 @@ class MaPermissionDirective {
             if (this.mode === 'disable') {
                 this.renderer.setProperty(this.el.nativeElement, 'disabled', true);
                 this.renderer.addClass(this.el.nativeElement, 'disabled');
+                this.renderer.setAttribute(this.el.nativeElement, 'pTooltip', "You don't have permission");
+                this.renderer.setAttribute(this.el.nativeElement, 'tooltipPosition', 'bottom');
             }
             else if (this.mode === 'hide') {
                 this.renderer.setStyle(this.el.nativeElement, 'display', 'none');
@@ -250,13 +252,17 @@ class MaLibModule {
     static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, declarations: [MaLibComponent,
             MaPermissionDirective,
             CurrencyPipe,
-            ViewSvgComponent], imports: [CommonModule], exports: [MaLibComponent,
+            ViewSvgComponent], imports: [CommonModule,
+            TooltipModule,
+            TranslateModule], exports: [MaLibComponent,
             MaPermissionDirective,
             TranslateModule,
             CommonModule,
             ViewSvgComponent,
             CurrencyPipe] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, providers: [CurrencyPipe], imports: [CommonModule, TranslateModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, providers: [CurrencyPipe], imports: [CommonModule,
+            TooltipModule,
+            TranslateModule, TranslateModule,
             CommonModule] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibModule, decorators: [{
@@ -269,7 +275,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
                         ViewSvgComponent
                     ],
                     imports: [
-                        CommonModule
+                        CommonModule,
+                        TooltipModule,
+                        TranslateModule,
                     ],
                     exports: [
                         MaLibComponent,
