@@ -16,7 +16,7 @@ export declare class ControlComponent extends BaseControlValueAccessor implement
     selectValue: string;
     options: any[];
     isShowTime: boolean;
-    nzFormatDate: string;
+    formatDate: string;
     minDate: Date;
     maxDate: Date;
     maxlength: number;
@@ -30,10 +30,7 @@ export declare class ControlComponent extends BaseControlValueAccessor implement
     ngOnInit(): void;
     onInputNumberSliceMaxLength(event: any): void;
     checkDate(): void;
-    updateNight(data: any): void;
-    setTime(time: string, type: string): string;
-    calculateDates(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ControlComponent, [{ optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<ControlComponent, "ord-control", never, { "type": { "alias": "type"; "required": false; }; "label": { "alias": "label"; "required": false; }; "labelClass": { "alias": "labelClass"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "isRequired": { "alias": "isRequired"; "required": false; }; "allowClear": { "alias": "allowClear"; "required": false; }; "labelSpan": { "alias": "labelSpan"; "required": false; }; "selectLabel": { "alias": "selectLabel"; "required": false; }; "selectValue": { "alias": "selectValue"; "required": false; }; "options": { "alias": "options"; "required": false; }; "isShowTime": { "alias": "isShowTime"; "required": false; }; "nzFormatDate": { "alias": "nzFormatDate"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "maxlength": { "alias": "maxlength"; "required": false; }; "maxNumber": { "alias": "maxNumber"; "required": false; }; "minNumber": { "alias": "minNumber"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<ControlComponent, "app-control", never, { "type": { "alias": "type"; "required": false; }; "label": { "alias": "label"; "required": false; }; "labelClass": { "alias": "labelClass"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "isRequired": { "alias": "isRequired"; "required": false; }; "allowClear": { "alias": "allowClear"; "required": false; }; "labelSpan": { "alias": "labelSpan"; "required": false; }; "selectLabel": { "alias": "selectLabel"; "required": false; }; "selectValue": { "alias": "selectValue"; "required": false; }; "options": { "alias": "options"; "required": false; }; "isShowTime": { "alias": "isShowTime"; "required": false; }; "formatDate": { "alias": "formatDate"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "maxlength": { "alias": "maxlength"; "required": false; }; "maxNumber": { "alias": "maxNumber"; "required": false; }; "minNumber": { "alias": "minNumber"; "required": false; }; }, {}, never, never, true, never>;
 }
 export {};

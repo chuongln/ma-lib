@@ -12,3 +12,4 @@ export * from './lib/component/form/date-picker/date-range-picker.component';
 export * from './lib/component/form/dropdown/dropdown.component';
 export * from './lib/component/form/filters/filters.component';
 export * from './lib/component/form/control/control.component';
+export * from './lib/component/form/card-form/card-form.component';

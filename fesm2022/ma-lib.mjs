@@ -70,7 +70,7 @@ class MaService {
         const list = Array.isArray(p) ? p : [p];
         return list.some(x => this.permissions.includes(x));
     }
-    modifyDateByUTC(date, isGetMethod = false) {
+    modifyDateByUTC(date, isGetMethod = true) {
         const localUTC = (new Date().getTimezoneOffset() / 60);
         date.setHours(date.getHours() + (!isGetMethod ? -localUTC : localUTC));
         return date;
@@ -487,7 +487,7 @@ class TableComponent {
             this.getList$(searchParams).subscribe({
                 next: (result) => {
                     this.isLoading = false;
-                    this.datas = result.data.items;
+                    this.datas = result.items;
                     this.totalRecords = result.total;
                 },
                 error: (err) => {
@@ -1082,6 +1082,26 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
                 type: Input
             }] } });
 
+class ErrorMessageComponent {
+    get formatLabel() {
+        return this.label;
+    }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: ErrorMessageComponent, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.2.12", type: ErrorMessageComponent, isStandalone: true, selector: "ord-error-message", inputs: { errors: "errors", label: "label", customErrorText: "customErrorText" }, ngImport: i0, template: "<ng-container *ngIf=\"errors && customErrorText\">\n  {{customErrorText | translate}}\n</ng-container>\n<ng-container *ngIf=\"errors && !customErrorText\">\n  <ng-container *ngIf=\"errors && errors['required']\">\n    {{'error.isRequired'|translate: {field: formatLabel || \"This field\"} }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['minlength']\">\n    {{'error.minLength'|translate: {field: formatLabel || \"This field\", value: errors[\"minlength\"].requiredLength } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['maxlength']\">\n    {{'error.maxLength'|translate: {field: formatLabel || \"This field\", value: errors[\"maxlength\"].requiredLength } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['min']\">\n    {{'error.min'|translate: {field: formatLabel || \"This field\", value: errors[\"min\"].min } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['max']\">\n    {{'error.max'|translate: {field: formatLabel || \"This field\", value: errors[\"max\"].max } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['email']\">\n    {{'error.email'|translate}}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['pattern']\">\n    {{'error.pattern'|translate: {field: formatLabel || \"This field\"} }}\n  </ng-container>\n</ng-container>", dependencies: [{ kind: "ngmodule", type: MaLibModule }, { kind: "directive", type: i2$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "pipe", type: i1$3.TranslatePipe, name: "translate" }] }); }
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: ErrorMessageComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'ord-error-message', standalone: true, imports: [
+                        MaLibModule,
+                    ], template: "<ng-container *ngIf=\"errors && customErrorText\">\n  {{customErrorText | translate}}\n</ng-container>\n<ng-container *ngIf=\"errors && !customErrorText\">\n  <ng-container *ngIf=\"errors && errors['required']\">\n    {{'error.isRequired'|translate: {field: formatLabel || \"This field\"} }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['minlength']\">\n    {{'error.minLength'|translate: {field: formatLabel || \"This field\", value: errors[\"minlength\"].requiredLength } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['maxlength']\">\n    {{'error.maxLength'|translate: {field: formatLabel || \"This field\", value: errors[\"maxlength\"].requiredLength } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['min']\">\n    {{'error.min'|translate: {field: formatLabel || \"This field\", value: errors[\"min\"].min } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['max']\">\n    {{'error.max'|translate: {field: formatLabel || \"This field\", value: errors[\"max\"].max } }}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['email']\">\n    {{'error.email'|translate}}\n  </ng-container>\n\n  <ng-container *ngIf=\"errors && errors['pattern']\">\n    {{'error.pattern'|translate: {field: formatLabel || \"This field\"} }}\n  </ng-container>\n</ng-container>" }]
+        }], propDecorators: { errors: [{
+                type: Input
+            }], label: [{
+                type: Input
+            }], customErrorText: [{
+                type: Input
+            }] } });
+
 class ControlComponent extends BaseControlValueAccessor {
     constructor(controlContainer) {
         super(controlContainer);
@@ -1097,7 +1117,7 @@ class ControlComponent extends BaseControlValueAccessor {
         this.selectValue = 'value';
         this.options = [];
         this.isShowTime = false;
-        this.nzFormatDate = 'dd/mm/yy';
+        this.formatDate = 'dd/mm/yy';
         this.minDate = new Date('1900/01/01');
         this.maxlength = 0;
         this.numNight = 1;
@@ -1109,8 +1129,6 @@ class ControlComponent extends BaseControlValueAccessor {
         if (this.maxlength == 0) {
             if (this.type === 'text') {
                 this.maxlength = 255;
-                // this.control.setValue(this.control.value);
-                console.log(this.control.value);
                 this.control.valueChanges.subscribe((res) => {
                     console.log(res);
                 });
@@ -1156,79 +1174,31 @@ class ControlComponent extends BaseControlValueAccessor {
             }
         }, 50);
     }
-    updateNight(data) {
-        this.numNight = data;
-        this.calculateDates();
-    }
-    setTime(time, type) {
-        if (!time || time.length < 5) {
-            return time;
-        }
-        const [hours, minutes] = time.split(':');
-        let date = new Date();
-        if (type === 'from' && this.control.value[0]) {
-            date = new Date(this.control.value[0]);
-            date.setHours(Number(hours));
-            date.setMinutes(Number(minutes));
-            date.setSeconds(0);
-            this.control.setValue([date, this.control.value[1] ?? null]);
-        }
-        else if (this.control.value[1]) {
-            date = new Date(this.control.value[1]);
-            date.setHours(Number(hours));
-            date.setMinutes(Number(minutes));
-            date.setSeconds(0);
-            this.control.setValue([this.control.value[0] ?? null, date]);
-        }
-        return time;
-    }
-    calculateDates() {
-        if (!this.control.value) {
-            return;
-        }
-        let departDate;
-        if (this.control.value[0] && this.numNight && this.numNight >= 1) {
-            const arrival = new Date(this.control.value[0]);
-            const numNight = this.numNight;
-            if (numNight > 999) {
-                return;
-            }
-            arrival.setHours(0, 0, 0, 0);
-            arrival.setDate(arrival.getDate() + numNight);
-            departDate = new Date(arrival.getFullYear(), arrival.getMonth(), arrival.getDate(), this.control.value[1].getHours(), this.control.value[1].getMinutes(), 0, 0);
-        }
-        else if (this.numNight < 1) {
-            this.numNight = 1;
-            const arrival = new Date(this.control.value[0]);
-            const newDepartDate = new Date(arrival.getFullYear(), arrival.getMonth(), arrival.getDate() + 1, this.control.value[1].getHours(), this.control.value[1].getMinutes(), 0, 0);
-            if (this.control.value[1] !== newDepartDate) {
-                departDate = newDepartDate;
-            }
-        }
-        this.control.setValue([this.control.value[0], departDate]);
-    }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: ControlComponent, deps: [{ token: i1$4.ControlContainer, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.2.12", type: ControlComponent, isStandalone: true, selector: "ord-control", inputs: { type: "type", label: "label", labelClass: "labelClass", placeholder: "placeholder", isRequired: "isRequired", allowClear: "allowClear", labelSpan: "labelSpan", selectLabel: "selectLabel", selectValue: "selectValue", options: "options", isShowTime: "isShowTime", nzFormatDate: "nzFormatDate", minDate: "minDate", maxDate: "maxDate", maxlength: "maxlength", maxNumber: "maxNumber", minNumber: "minNumber" }, providers: [
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.2.12", type: ControlComponent, isStandalone: true, selector: "app-control", inputs: { type: "type", label: "label", labelClass: "labelClass", placeholder: "placeholder", isRequired: "isRequired", allowClear: "allowClear", labelSpan: "labelSpan", selectLabel: "selectLabel", selectValue: "selectValue", options: "options", isShowTime: "isShowTime", formatDate: "formatDate", minDate: "minDate", maxDate: "maxDate", maxlength: "maxlength", maxNumber: "maxNumber", minNumber: "minNumber" }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef(() => ControlComponent),
                 multi: true,
             },
-        ], usesInheritance: true, ngImport: i0, template: "<ng-container *ngIf=\"type === 'text'\">\n  <div class=\"flex flex-column gap-2\">\n    <label *ngIf=\"label\" [class]=\"labelClass\">{{ label }}</label>\n    <ng-container [ngTemplateOutlet]=\"required\" *ngIf=\"isRequired\"></ng-container>\n\n    <input pInputText [formControl]=\"control\" [maxlength]=\"maxlength\" [(ngModel)]=\"value\"\n      [placeholder]=\"placeholder || ('enter'| translate)\" />\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'number'\">\n\n</ng-container>\n<ng-container *ngIf=\"type === 'textarea'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'select'\">\n  <p-dropdown [options]=\"options\" [formControl]=\"control\" [optionLabel]=\"selectLabel\" [optionValue]=\"selectValue\"\n    [placeholder]=\"placeholder || ('enter'| translate)\" />\n\n</ng-container>\n<ng-container *ngIf=\"type === 'date'\">\n</ng-container>\n<ng-container *ngIf=\"type === 'date-range'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'date-range-time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'checkbox'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'radio-group'\">\n</ng-container>\n\n\n<ng-container *ngIf=\"type === 'multi-select'\">\n</ng-container>\n\n<ng-template #error let-control>\n  <div class=\"mt-2\">\n    <ord-error-message [errors]=\"control.errors\" [customErrorText]=\"customErrorText\"\n      [label]=\"label\"></ord-error-message>\n  </div>\n</ng-template>\n\n<ng-template #required>\n  <span *ngIf=\"isRequired\" style=\"display: inline-block;\n      margin-left: 4px;\n      color: #ff4d4f;\n      font-size: 14px;\n      font-family: SimSun, sans-serif;\n      line-height: 1;\">*</span>\n</ng-template>", styles: [""], dependencies: [{ kind: "ngmodule", type: MaLibModule }, { kind: "directive", type: i2$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i2$1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "pipe", type: i1$3.TranslatePipe, name: "translate" }, { kind: "ngmodule", type: InputTextModule }, { kind: "directive", type: i5.InputText, selector: "[pInputText]" }, { kind: "ngmodule", type: ReactiveFormsModule }, { kind: "directive", type: i1$4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i1$4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i1$4.MaxLengthValidator, selector: "[maxlength][formControlName],[maxlength][formControl],[maxlength][ngModel]", inputs: ["maxlength"] }, { kind: "directive", type: i1$4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }] }); }
+        ], usesInheritance: true, ngImport: i0, template: "<ng-container *ngIf=\"type === 'text'\">\n  <div class=\"flex flex-column gap-2\">\n    <label *ngIf=\"label\" [class]=\"labelClass\">{{ label }}</label>\n    <ng-container [ngTemplateOutlet]=\"required\" *ngIf=\"isRequired\"></ng-container>\n\n    <input pInputText [formControl]=\"control\" [maxlength]=\"maxlength\"\n      [placeholder]=\"placeholder || ('enter'| translate)\" />\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'number'\">\n\n</ng-container>\n<ng-container *ngIf=\"type === 'textarea'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'select'\">\n  <div class=\"flex flex-column gap-2 dropdown-control\">\n\n    <label *ngIf=\"label\" [class]=\"labelClass\">{{ label }}</label>\n    <ng-container [ngTemplateOutlet]=\"required\" *ngIf=\"isRequired\"></ng-container>\n    <p-dropdown [options]=\"options\" [formControl]=\"control\" [optionLabel]=\"selectLabel\" [optionValue]=\"selectValue\"\n      [placeholder]=\"placeholder || ('enter'| translate)\">\n      <ng-template let-selectedItem pTemplate=\"selectedItem\">\n        <span *ngIf=\"selectedItem\">\n          {{ selectedItem.label | translate}}\n        </span>\n        <span *ngIf=\"!selectedItem \">\n          {{ placeholder | translate }}\n        </span>\n      </ng-template>\n      <ng-template pTemplate=\"option\" let-option>{{option.label | translate}} </ng-template>\n    </p-dropdown>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'date'\">\n  <div class=\"date-picker-control\">\n    <p-calendar [formControl]=\"control\" [minDate]=\"minDate\" [maxDate]=\"maxDate\" #calendar [dateFormat]=\"formatDate\"\n      appendTo=\"body\" [placeholder]=\"placeholder || ('enter'| translate)\"></p-calendar>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'date-range'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'date-range-time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'checkbox'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'radio-group'\">\n</ng-container>\n\n\n<ng-container *ngIf=\"type === 'multi-select'\">\n</ng-container>\n\n<!-- <ng-template #error let-control> -->\n<div class=\"mt-2 error\" *ngIf=\"control && control.errors && (control.dirty || control.touched)\">\n  <ord-error-message [errors]=\"control.errors\" [customErrorText]=\"customErrorText\" [label]=\"label\"></ord-error-message>\n</div>\n<!-- </ng-template> -->\n\n<ng-template #required>\n  <span *ngIf=\"isRequired\" style=\"display: inline-block;\n      margin-left: 4px;\n      color: #ff4d4f;\n      font-size: 14px;\n      font-family: SimSun, sans-serif;\n      line-height: 1;\">*</span>\n</ng-template>", styles: [".error{color:#ff4d4f}::ng-deep .dropdown-control .p-dropdown{width:100%}::ng-deep .date-picker-control{display:flex;width:100%}::ng-deep .date-picker-control .p-inputwrapper-filled{width:100%}::ng-deep .date-picker-control .p-calendar{width:100%}\n"], dependencies: [{ kind: "ngmodule", type: MaLibModule }, { kind: "directive", type: i2$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i2$1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "pipe", type: i1$3.TranslatePipe, name: "translate" }, { kind: "ngmodule", type: ReactiveFormsModule }, { kind: "directive", type: i1$4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i1$4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i1$4.MaxLengthValidator, selector: "[maxlength][formControlName],[maxlength][formControl],[maxlength][ngModel]", inputs: ["maxlength"] }, { kind: "directive", type: i1$4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { kind: "ngmodule", type: InputTextModule }, { kind: "directive", type: i5.InputText, selector: "[pInputText]" }, { kind: "ngmodule", type: CalendarModule }, { kind: "component", type: i4$1.Calendar, selector: "p-calendar", inputs: ["style", "styleClass", "inputStyle", "inputId", "name", "inputStyleClass", "placeholder", "ariaLabelledBy", "iconAriaLabel", "disabled", "dateFormat", "multipleSeparator", "rangeSeparator", "inline", "showOtherMonths", "selectOtherMonths", "showIcon", "icon", "appendTo", "readonlyInput", "shortYearCutoff", "monthNavigator", "yearNavigator", "hourFormat", "timeOnly", "stepHour", "stepMinute", "stepSecond", "showSeconds", "required", "showOnFocus", "showWeek", "showClear", "dataType", "selectionMode", "maxDateCount", "showButtonBar", "todayButtonStyleClass", "clearButtonStyleClass", "autoZIndex", "baseZIndex", "panelStyleClass", "panelStyle", "keepInvalid", "hideOnDateTimeSelect", "touchUI", "timeSeparator", "focusTrap", "showTransitionOptions", "hideTransitionOptions", "tabindex", "minDate", "maxDate", "disabledDates", "disabledDays", "yearRange", "showTime", "responsiveOptions", "numberOfMonths", "firstDayOfWeek", "locale", "view", "defaultDate"], outputs: ["onFocus", "onBlur", "onClose", "onSelect", "onClear", "onInput", "onTodayClick", "onClearClick", "onMonthChange", "onYearChange", "onClickOutside", "onShow"] }, { kind: "directive", type: i1.PrimeTemplate, selector: "[pTemplate]", inputs: ["type", "pTemplate"] }, { kind: "ngmodule", type: DropdownModule }, { kind: "component", type: i6$1.Dropdown, selector: "p-dropdown", inputs: ["scrollHeight", "filter", "name", "style", "panelStyle", "styleClass", "panelStyleClass", "readonly", "required", "editable", "appendTo", "tabindex", "placeholder", "filterPlaceholder", "filterLocale", "inputId", "selectId", "dataKey", "filterBy", "autofocus", "resetFilterOnHide", "dropdownIcon", "optionLabel", "optionValue", "optionDisabled", "optionGroupLabel", "optionGroupChildren", "autoDisplayFirst", "group", "showClear", "emptyFilterMessage", "emptyMessage", "lazy", "virtualScroll", "virtualScrollItemSize", "virtualScrollOptions", "overlayOptions", "ariaFilterLabel", "ariaLabel", "ariaLabelledBy", "filterMatchMode", "maxlength", "tooltip", "tooltipPosition", "tooltipPositionStyle", "tooltipStyleClass", "autofocusFilter", "overlayDirection", "disabled", "itemSize", "autoZIndex", "baseZIndex", "showTransitionOptions", "hideTransitionOptions", "filterValue", "options"], outputs: ["onChange", "onFilter", "onFocus", "onBlur", "onClick", "onShow", "onHide", "onClear", "onLazyLoad"] }, { kind: "component", type: ErrorMessageComponent, selector: "ord-error-message", inputs: ["errors", "label", "customErrorText"] }] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: ControlComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ord-control', standalone: true, imports: [
+            args: [{ selector: 'app-control', standalone: true, imports: [
                         MaLibModule,
+                        ReactiveFormsModule,
                         InputTextModule,
-                        ReactiveFormsModule
+                        CalendarModule,
+                        DropdownModule,
+                        ErrorMessageComponent
                     ], providers: [
                         {
                             provide: NG_VALUE_ACCESSOR,
                             useExisting: forwardRef(() => ControlComponent),
                             multi: true,
                         },
-                    ], template: "<ng-container *ngIf=\"type === 'text'\">\n  <div class=\"flex flex-column gap-2\">\n    <label *ngIf=\"label\" [class]=\"labelClass\">{{ label }}</label>\n    <ng-container [ngTemplateOutlet]=\"required\" *ngIf=\"isRequired\"></ng-container>\n\n    <input pInputText [formControl]=\"control\" [maxlength]=\"maxlength\" [(ngModel)]=\"value\"\n      [placeholder]=\"placeholder || ('enter'| translate)\" />\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'number'\">\n\n</ng-container>\n<ng-container *ngIf=\"type === 'textarea'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'select'\">\n  <p-dropdown [options]=\"options\" [formControl]=\"control\" [optionLabel]=\"selectLabel\" [optionValue]=\"selectValue\"\n    [placeholder]=\"placeholder || ('enter'| translate)\" />\n\n</ng-container>\n<ng-container *ngIf=\"type === 'date'\">\n</ng-container>\n<ng-container *ngIf=\"type === 'date-range'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'date-range-time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'checkbox'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'radio-group'\">\n</ng-container>\n\n\n<ng-container *ngIf=\"type === 'multi-select'\">\n</ng-container>\n\n<ng-template #error let-control>\n  <div class=\"mt-2\">\n    <ord-error-message [errors]=\"control.errors\" [customErrorText]=\"customErrorText\"\n      [label]=\"label\"></ord-error-message>\n  </div>\n</ng-template>\n\n<ng-template #required>\n  <span *ngIf=\"isRequired\" style=\"display: inline-block;\n      margin-left: 4px;\n      color: #ff4d4f;\n      font-size: 14px;\n      font-family: SimSun, sans-serif;\n      line-height: 1;\">*</span>\n</ng-template>" }]
+                    ], template: "<ng-container *ngIf=\"type === 'text'\">\n  <div class=\"flex flex-column gap-2\">\n    <label *ngIf=\"label\" [class]=\"labelClass\">{{ label }}</label>\n    <ng-container [ngTemplateOutlet]=\"required\" *ngIf=\"isRequired\"></ng-container>\n\n    <input pInputText [formControl]=\"control\" [maxlength]=\"maxlength\"\n      [placeholder]=\"placeholder || ('enter'| translate)\" />\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'number'\">\n\n</ng-container>\n<ng-container *ngIf=\"type === 'textarea'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'select'\">\n  <div class=\"flex flex-column gap-2 dropdown-control\">\n\n    <label *ngIf=\"label\" [class]=\"labelClass\">{{ label }}</label>\n    <ng-container [ngTemplateOutlet]=\"required\" *ngIf=\"isRequired\"></ng-container>\n    <p-dropdown [options]=\"options\" [formControl]=\"control\" [optionLabel]=\"selectLabel\" [optionValue]=\"selectValue\"\n      [placeholder]=\"placeholder || ('enter'| translate)\">\n      <ng-template let-selectedItem pTemplate=\"selectedItem\">\n        <span *ngIf=\"selectedItem\">\n          {{ selectedItem.label | translate}}\n        </span>\n        <span *ngIf=\"!selectedItem \">\n          {{ placeholder | translate }}\n        </span>\n      </ng-template>\n      <ng-template pTemplate=\"option\" let-option>{{option.label | translate}} </ng-template>\n    </p-dropdown>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'date'\">\n  <div class=\"date-picker-control\">\n    <p-calendar [formControl]=\"control\" [minDate]=\"minDate\" [maxDate]=\"maxDate\" #calendar [dateFormat]=\"formatDate\"\n      appendTo=\"body\" [placeholder]=\"placeholder || ('enter'| translate)\"></p-calendar>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"type === 'date-range'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'date-range-time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'time'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'checkbox'\">\n</ng-container>\n\n<ng-container *ngIf=\"type === 'radio-group'\">\n</ng-container>\n\n\n<ng-container *ngIf=\"type === 'multi-select'\">\n</ng-container>\n\n<!-- <ng-template #error let-control> -->\n<div class=\"mt-2 error\" *ngIf=\"control && control.errors && (control.dirty || control.touched)\">\n  <ord-error-message [errors]=\"control.errors\" [customErrorText]=\"customErrorText\" [label]=\"label\"></ord-error-message>\n</div>\n<!-- </ng-template> -->\n\n<ng-template #required>\n  <span *ngIf=\"isRequired\" style=\"display: inline-block;\n      margin-left: 4px;\n      color: #ff4d4f;\n      font-size: 14px;\n      font-family: SimSun, sans-serif;\n      line-height: 1;\">*</span>\n</ng-template>", styles: [".error{color:#ff4d4f}::ng-deep .dropdown-control .p-dropdown{width:100%}::ng-deep .date-picker-control{display:flex;width:100%}::ng-deep .date-picker-control .p-inputwrapper-filled{width:100%}::ng-deep .date-picker-control .p-calendar{width:100%}\n"] }]
         }], ctorParameters: function () { return [{ type: i1$4.ControlContainer, decorators: [{
                     type: Optional
                 }] }]; }, propDecorators: { type: [{
@@ -1253,7 +1223,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
                 type: Input
             }], isShowTime: [{
                 type: Input
-            }], nzFormatDate: [{
+            }], formatDate: [{
                 type: Input
             }], minDate: [{
                 type: Input
@@ -1267,6 +1237,46 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
                 type: Input
             }] } });
 
+class CardFormComponent extends BaseControlValueAccessor {
+    get f() {
+        return this.formGroup?.controls;
+    }
+    constructor(controlContainer) {
+        super(controlContainer);
+        this.controlContainer = controlContainer;
+    }
+    ngOnInit() {
+    }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: CardFormComponent, deps: [{ token: i1$4.ControlContainer, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.2.12", type: CardFormComponent, isStandalone: true, selector: "app-card-form", inputs: { header: "header", data: "data", cols: "cols", formGroup: "formGroup" }, providers: [
+            {
+                provide: NG_VALUE_ACCESSOR,
+                useExisting: forwardRef(() => CardFormComponent),
+                multi: true,
+            },
+        ], usesInheritance: true, ngImport: i0, template: "<p-card class='dynamic-card' [header]=\"header | translate\"\n  [style]=\"{width: '100%', maxWidth: '100%', overflow: 'hidden'}\">\n  <div class=\"grid pt-4\">\n    <ng-container *ngFor=\"let col of cols\">\n      <ng-container *ngIf=\"!col.hidden\">\n        <div class=\"col-6 xl:col-6 label\"> {{ col.label | translate }}\n        </div>\n        <div class=\"col-6 xl:col-6\">\n          <ng-container>\n            <app-control [type]=\"col.type\" [formControl]=\"f[col.formControlName]\"\n              [optionValue]=\"col.optionValue || 'value'\" [options]=\"col.options\"\n              [optionLabel]=\"col.optionLabel || 'label'\" [placeholder]=\"col.placeholder || ('enter'| translate)\"\n              [label]=\"col.label\" labelClass=\"hidden\" />\n          </ng-container>\n        </div>\n      </ng-container>\n    </ng-container>\n  </div>\n</p-card>", styles: [".flex-card{justify-content:space-between}::ng-deep .dynamic-card{width:100%;max-width:100%;box-sizing:border-box}::ng-deep .dynamic-card .p-card .p-card-title{font-size:16px;font-weight:600}::ng-deep .dynamic-card .p-card .p-card-body{padding:20px 24px}::ng-deep .dynamic-card .col-6{padding:8px 16px}::ng-deep .dynamic-card .p-card .p-card-content{padding:0}.value{overflow:hidden;color:#404040;font-size:14px;font-weight:500;line-height:20px;width:-moz-fit-content;width:fit-content;max-width:100%;white-space:nowrap;text-overflow:ellipsis;display:block}.label{color:#6c6c6c;font-size:14px;font-style:normal;font-weight:400;line-height:20px}::ng-deep .customtooltip .p-tooltip-text{background-color:#fff;color:#404040;width:max-content}::ng-deep .customtooltip .p-tooltip-arrow{width:0;height:0;border-style:solid;position:absolute;border-width:0 6px 6px 6px;border-color:transparent transparent #fff transparent;top:-2px;left:30%;transform:translate(-50%);z-index:1}\n"], dependencies: [{ kind: "ngmodule", type: CardModule }, { kind: "component", type: i1$2.Card, selector: "p-card", inputs: ["header", "subheader", "style", "styleClass"] }, { kind: "ngmodule", type: CommonModule }, { kind: "directive", type: i2$1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i2$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "ngmodule", type: TooltipModule }, { kind: "ngmodule", type: MaLibModule }, { kind: "pipe", type: i1$3.TranslatePipe, name: "translate" }, { kind: "component", type: ControlComponent, selector: "app-control", inputs: ["type", "label", "labelClass", "placeholder", "isRequired", "allowClear", "labelSpan", "selectLabel", "selectValue", "options", "isShowTime", "formatDate", "minDate", "maxDate", "maxlength", "maxNumber", "minNumber"] }, { kind: "ngmodule", type: TranslateModule }] }); }
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: CardFormComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'app-card-form', standalone: true, imports: [CardModule, CommonModule, TooltipModule, MaLibModule, ControlComponent, TranslateModule], providers: [
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef(() => CardFormComponent),
+                            multi: true,
+                        },
+                    ], template: "<p-card class='dynamic-card' [header]=\"header | translate\"\n  [style]=\"{width: '100%', maxWidth: '100%', overflow: 'hidden'}\">\n  <div class=\"grid pt-4\">\n    <ng-container *ngFor=\"let col of cols\">\n      <ng-container *ngIf=\"!col.hidden\">\n        <div class=\"col-6 xl:col-6 label\"> {{ col.label | translate }}\n        </div>\n        <div class=\"col-6 xl:col-6\">\n          <ng-container>\n            <app-control [type]=\"col.type\" [formControl]=\"f[col.formControlName]\"\n              [optionValue]=\"col.optionValue || 'value'\" [options]=\"col.options\"\n              [optionLabel]=\"col.optionLabel || 'label'\" [placeholder]=\"col.placeholder || ('enter'| translate)\"\n              [label]=\"col.label\" labelClass=\"hidden\" />\n          </ng-container>\n        </div>\n      </ng-container>\n    </ng-container>\n  </div>\n</p-card>", styles: [".flex-card{justify-content:space-between}::ng-deep .dynamic-card{width:100%;max-width:100%;box-sizing:border-box}::ng-deep .dynamic-card .p-card .p-card-title{font-size:16px;font-weight:600}::ng-deep .dynamic-card .p-card .p-card-body{padding:20px 24px}::ng-deep .dynamic-card .col-6{padding:8px 16px}::ng-deep .dynamic-card .p-card .p-card-content{padding:0}.value{overflow:hidden;color:#404040;font-size:14px;font-weight:500;line-height:20px;width:-moz-fit-content;width:fit-content;max-width:100%;white-space:nowrap;text-overflow:ellipsis;display:block}.label{color:#6c6c6c;font-size:14px;font-style:normal;font-weight:400;line-height:20px}::ng-deep .customtooltip .p-tooltip-text{background-color:#fff;color:#404040;width:max-content}::ng-deep .customtooltip .p-tooltip-arrow{width:0;height:0;border-style:solid;position:absolute;border-width:0 6px 6px 6px;border-color:transparent transparent #fff transparent;top:-2px;left:30%;transform:translate(-50%);z-index:1}\n"] }]
+        }], ctorParameters: function () { return [{ type: i1$4.ControlContainer, decorators: [{
+                    type: Optional
+                }] }]; }, propDecorators: { header: [{
+                type: Input
+            }], data: [{
+                type: Input
+            }], cols: [{
+                type: Input
+            }], formGroup: [{
+                type: Input
+            }] } });
+
 /*
  * Public API Surface of ma-lib
  */
@@ -1275,5 +1285,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
  * Generated bundle index. Do not edit.
  */
 
-export { CardComponent, ConfigDisplayComponent, ControlComponent, CurrencyPipe, DatePickerComponent, DateRangePickerComponent, DropdownComponent, FiltersComponent, MaLibComponent, MaLibModule, MaPermissionDirective, MaService, TableComponent, ViewSvgComponent };
+export { CardComponent, CardFormComponent, ConfigDisplayComponent, ControlComponent, CurrencyPipe, DatePickerComponent, DateRangePickerComponent, DropdownComponent, FiltersComponent, MaLibComponent, MaLibModule, MaPermissionDirective, MaService, TableComponent, ViewSvgComponent };
 //# sourceMappingURL=ma-lib.mjs.map
