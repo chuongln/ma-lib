@@ -98,6 +98,22 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
                     providedIn: 'root'
                 }]
         }], ctorParameters: function () { return [{ type: i1.MessageService }]; } });
+function convertDateToCustomFormat(dateString, haveHours = true) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    if (haveHours) {
+        return `${day}-${month}-${year} ${hours}:${minutes} ${ampm}`;
+    }
+    else
+        return `${day}-${month}-${year}`;
+}
 
 class MaLibComponent {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: MaLibComponent, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
@@ -1286,5 +1302,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
  * Generated bundle index. Do not edit.
  */
 
-export { CardComponent, CardFormComponent, ConfigDisplayComponent, ControlComponent, CurrencyPipe, DatePickerComponent, DateRangePickerComponent, DropdownComponent, FiltersComponent, MaLibComponent, MaLibModule, MaPermissionDirective, MaService, TableComponent, ViewSvgComponent };
+export { CardComponent, CardFormComponent, ConfigDisplayComponent, ControlComponent, CurrencyPipe, DatePickerComponent, DateRangePickerComponent, DropdownComponent, FiltersComponent, MaLibComponent, MaLibModule, MaPermissionDirective, MaService, TableComponent, ViewSvgComponent, convertDateToCustomFormat };
 //# sourceMappingURL=ma-lib.mjs.map

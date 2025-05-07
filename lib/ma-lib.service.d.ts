@@ -21,3 +21,4 @@ export declare class MaService {
     static ɵfac: i0.ɵɵFactoryDeclaration<MaService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MaService>;
 }
+export declare function convertDateToCustomFormat(dateString: string, haveHours?: boolean): string;
