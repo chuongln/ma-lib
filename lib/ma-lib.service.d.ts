@@ -4,9 +4,11 @@ import * as i0 from "@angular/core";
 export declare class MaService {
     private messageService;
     private loadingSubject;
+    private downloadSubject;
     private permissions;
     constructor(messageService: MessageService);
     handleError(error: any): void;
+    showNotification(message: any): void;
     showLoading(): void;
     hideLoading(): void;
     getLoading(): Observable<boolean>;
@@ -14,6 +16,8 @@ export declare class MaService {
     getPermissions(): string[];
     hasPermission(p: string | string[]): boolean;
     modifyDateByUTC(date: Date, isGetMethod?: boolean): Date;
+    setDownload(fileName: string): void;
+    getStatusDownload(): Observable<string>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MaService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MaService>;
 }
