@@ -6,6 +6,8 @@ export declare class MaService {
     private loadingSubject;
     private downloadSubject;
     private permissions;
+    private merchants;
+    private userInfo;
     constructor(messageService: MessageService);
     handleError(error: any): void;
     showNotification(message: any): void;
@@ -18,6 +20,10 @@ export declare class MaService {
     modifyDateByUTC(date: Date, isGetMethod?: boolean): Date;
     setDownload(fileName: string): void;
     getStatusDownload(): Observable<string>;
+    filterMerchantsByType(type: string): any[];
+    setMerchant(perms: any[]): void;
+    setUserInfo(perms: any[]): void;
+    getUserInfo(): any;
     static ɵfac: i0.ɵɵFactoryDeclaration<MaService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MaService>;
 }
