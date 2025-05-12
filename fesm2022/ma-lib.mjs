@@ -628,6 +628,7 @@ class DatePickerComponent extends BaseControlValueAccessor {
             { label: 'weekly', value: 'weekly' },
             { label: 'monthly', value: 'monthly' },
         ];
+        this.onChangeInterval = new EventEmitter();
     }
     get formGroup() {
         return this.controlContainer?.control;
@@ -678,6 +679,7 @@ class DatePickerComponent extends BaseControlValueAccessor {
         const currentValue = this.control.value;
         this.control.setValue(null, { emitEvent: false });
         this.control.setValue(currentValue);
+        this.onChangeInterval.emit(event);
     }
     onSelectDate(selectedDate, byOption = false) {
         if (!selectedDate) {
@@ -717,7 +719,7 @@ class DatePickerComponent extends BaseControlValueAccessor {
         return new Date(startOfWeek.setDate(startOfWeek.getDate() + 6));
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.12", ngImport: i0, type: DatePickerComponent, deps: [{ token: i1$4.ControlContainer, optional: true }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.2.12", type: DatePickerComponent, isStandalone: true, selector: "date-picker", inputs: { label: "label", maxDate: "maxDate", minDate: "minDate", showTime: "showTime" }, providers: [
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.2.12", type: DatePickerComponent, isStandalone: true, selector: "date-picker", inputs: { label: "label", maxDate: "maxDate", minDate: "minDate", showTime: "showTime" }, outputs: { onChangeInterval: "onChangeInterval" }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef(() => DatePickerComponent),
@@ -754,6 +756,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.12", ngImpo
             }], calendar: [{
                 type: ViewChild,
                 args: ['calendar']
+            }], onChangeInterval: [{
+                type: Output
             }] } });
 
 class DateRangePickerComponent extends BaseControlValueAccessor {

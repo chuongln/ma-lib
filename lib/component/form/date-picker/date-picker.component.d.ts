@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnInit } from '@angular/core';
 import { ControlContainer, FormGroup } from '@angular/forms';
 import { BaseControlValueAccessor } from '../base-control-value-accessor';
 import * as i0 from "@angular/core";
@@ -12,6 +12,7 @@ export declare class DatePickerComponent extends BaseControlValueAccessor implem
     dateOption: string;
     dateOptions: any;
     private calendar;
+    onChangeInterval: EventEmitter<any>;
     constructor(controlContainer: ControlContainer, cdr: ChangeDetectorRef);
     get formGroup(): FormGroup;
     ngOnInit(): void;
@@ -25,5 +26,5 @@ export declare class DatePickerComponent extends BaseControlValueAccessor implem
     getStartOfWeek(date: Date): Date;
     getEndOfWeek(date: Date): Date;
     static ɵfac: i0.ɵɵFactoryDeclaration<DatePickerComponent, [{ optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<DatePickerComponent, "date-picker", never, { "label": { "alias": "label"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "showTime": { "alias": "showTime"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<DatePickerComponent, "date-picker", never, { "label": { "alias": "label"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "showTime": { "alias": "showTime"; "required": false; }; }, { "onChangeInterval": "onChangeInterval"; }, never, never, true, never>;
 }
