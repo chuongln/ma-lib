@@ -8,4 +8,6 @@ export interface CardForm {
     options?: any[];
     optionValue?: string;
     optionLabel?: string;
+    isRequired?: boolean;
+    maxlength?: number;
 }

@@ -17,7 +17,6 @@ export declare class MaService {
     setPermissions(perms: string[]): void;
     getPermissions(): string[];
     hasPermission(p: string | string[]): boolean;
-    modifyDateByUTC(date: Date, isGetMethod?: boolean): Date;
     setDownload(fileName: string): void;
     getStatusDownload(): Observable<string>;
     filterMerchantsByType(type: string): any[];
