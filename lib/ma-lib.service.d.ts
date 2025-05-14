@@ -9,7 +9,7 @@ export declare class MaService {
     private merchants;
     private userInfo;
     constructor(messageService: MessageService);
-    handleError(error: any): void;
+    handleError(err: any): void;
     showNotification(message: any): void;
     showLoading(): void;
     hideLoading(): void;

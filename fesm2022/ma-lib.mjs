@@ -47,12 +47,12 @@ class MaService {
         this.merchants = [];
         this.userInfo = null;
     }
-    handleError(error) {
-        let err = JSON.parse(error.response);
+    handleError(err) {
+        let error = err?.error?.message || err;
         this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: err?.message || 'An unexpected error occurred.'
+            detail: error || 'An unexpected error occurred.'
         });
     }
     showNotification(message) {
