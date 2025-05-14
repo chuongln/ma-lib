@@ -48,10 +48,11 @@ class MaService {
         this.userInfo = null;
     }
     handleError(error) {
+        let err = JSON.parse(error.response);
         this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: error?.message || 'An unexpected error occurred.'
+            detail: err?.message || 'An unexpected error occurred.'
         });
     }
     showNotification(message) {
