@@ -49,6 +49,9 @@ class MaService {
     }
     handleError(err) {
         let error = err?.error?.message || err;
+        if (error.error && !error.error.message) {
+            error = error.error;
+        }
         this.messageService.add({
             severity: 'error',
             summary: 'Error',
