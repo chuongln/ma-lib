@@ -9,6 +9,7 @@ export declare class MaService {
     private merchants;
     private userInfo;
     private partnerId;
+    private partnerIdSubject;
     constructor(messageService: MessageService);
     handleError(err: any): void;
     showNotification(message: any): void;
@@ -21,10 +22,11 @@ export declare class MaService {
     setDownload(fileName: string): void;
     getStatusDownload(): Observable<string>;
     filterMerchantsByType(type: string): any[];
-    setMerchant(perms: any[]): void;
-    setUserInfo(perms: any[]): void;
+    setMerchant(perms: any): void;
+    setUserInfo(perms: any): void;
     setPartnerId(perms: string): void;
     getPartnerId(): string;
+    getPartnerIdS(): Observable<string>;
     getUserInfo(): any;
     static ɵfac: i0.ɵɵFactoryDeclaration<MaService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MaService>;

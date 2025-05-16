@@ -47,6 +47,7 @@ class MaService {
         this.merchants = [];
         this.userInfo = null;
         this.partnerId = null;
+        this.partnerIdSubject = new BehaviorSubject(null);
     }
     handleError(err) {
         let error = err?.error?.message || err;
@@ -102,9 +103,13 @@ class MaService {
     }
     setPartnerId(perms) {
         this.partnerId = perms;
+        this.partnerIdSubject.next(perms);
     }
     getPartnerId() {
         return this.partnerId;
+    }
+    getPartnerIdS() {
+        return this.partnerIdSubject.asObservable();
     }
     getUserInfo() {
         return this.userInfo;
