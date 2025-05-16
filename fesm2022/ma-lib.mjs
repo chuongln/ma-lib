@@ -46,6 +46,7 @@ class MaService {
         this.permissions = [];
         this.merchants = [];
         this.userInfo = null;
+        this.partnerId = null;
     }
     handleError(err) {
         let error = err?.error?.message || err;
@@ -98,6 +99,12 @@ class MaService {
     }
     setUserInfo(perms) {
         this.userInfo = perms;
+    }
+    setPartnerId(perms) {
+        this.partnerId = perms;
+    }
+    getPartnerId() {
+        return this.partnerId;
     }
     getUserInfo() {
         return this.userInfo;

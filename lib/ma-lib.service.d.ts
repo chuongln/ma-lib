@@ -8,6 +8,7 @@ export declare class MaService {
     private permissions;
     private merchants;
     private userInfo;
+    private partnerId;
     constructor(messageService: MessageService);
     handleError(err: any): void;
     showNotification(message: any): void;
@@ -22,6 +23,8 @@ export declare class MaService {
     filterMerchantsByType(type: string): any[];
     setMerchant(perms: any[]): void;
     setUserInfo(perms: any[]): void;
+    setPartnerId(perms: string): void;
+    getPartnerId(): string;
     getUserInfo(): any;
     static ɵfac: i0.ɵɵFactoryDeclaration<MaService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MaService>;
