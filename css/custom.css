@@ -1,0 +1,235 @@
+/** ADD YOUR AWESOME CODES HERE **/
+body {
+  overflow-x: hidden !important;
+  background-color: #f8e0de !important;
+}
+
+.typed-cursor {
+  display: none !important;
+}
+
+.img-fluid {
+  object-fit: cover;
+  /* Giữ tỷ lệ ảnh và cắt phần thừa để vừa khung */
+  object-position: center;
+  /* Canh giữa ảnh khi bị cắt */
+  /* aspect-ratio: 1 / 1; */
+  /* Đảm bảo tỉ lệ 1:1 (vuông) */
+  border-radius: 68px;
+
+
+}
+
+.pogoSlider-slide {
+  object-fit: cover;
+  /* Giữ tỷ lệ ảnh và cắt phần thừa để vừa khung */
+  object-position: center;
+  /* Canh giữa ảnh khi bị cắt */
+  aspect-ratio: 1 / 1;
+  /* Đảm bảo tỉ lệ 1:1 (vuông) */
+
+
+}
+
+.mfp-title {
+  display: none;
+}
+
+.pogoSlider {
+  height: 100vh !important;
+  max-height: none !important;
+  /* Remove any max-height restriction from default Pogo Slider CSS */
+
+}
+
+.pogoSlider-slide {
+  /* object-fit: contain !important; */
+  /* background-size: contain !important; */
+  background-position: center center !important;
+
+}
+
+#drag-container,
+#spin-container {
+  position: relative;
+  display: flex;
+  margin: auto;
+  transform-style: preserve-3d;
+  transform: rotateX(-10deg);
+}
+
+#drag-container img,
+#drag-container video {
+  transform-style: preserve-3d;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 200px;
+  font-size: 50px;
+  text-align: center;
+  box-shadow: 0 0 8px #fff;
+  -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
+}
+
+#drag-container img:hover,
+#drag-container video:hover {
+  box-shadow: 0 0 15px #fffd;
+  -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0007);
+}
+
+#drag-container p {
+  font-family: Serif;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(90deg);
+  color: #fff;
+}
+
+#ground {
+  width: 900px;
+  height: 900px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(90deg);
+  background: -webkit-radial-gradient(center center, farthest-side, #9993, transparent);
+}
+
+#music-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#carousel-container {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes spinRevert {
+  from {
+    transform: rotateY(360deg);
+  }
+
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+* {
+  font-family: 'Playfair Display' !important;
+}
+
+.map-container {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+
+.calendar-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.calendar-box {
+  /* display: flex; */
+}
+
+.month-label {
+  font-size: 14px;
+  color: #d56b8c;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+
+.day {
+  padding: 10px;
+  text-align: center;
+  width: 55px;
+  height: 55px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wedding-day {
+  background-color: #ffccd5;
+  color: #b30030;
+  font-weight: bold;
+  border-radius: 999px;
+}
+
+.couple-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.note {
+  margin-top: 64px;
+  font-size: 19px;
+  background: #f9d3cf;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+@media (max-width: 768px) {
+  .check-hidden {
+    display: none;
+  }
+  .calendar-container {
+    padding: 10px;
+    margin-top: 20px;
+
+  }
+
+  .day {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+
+  .img-fluid {
+    border-radius: 40px;
+  }
+
+  .gallery-box ul li {
+    border-width: 12px;
+  }
+}
