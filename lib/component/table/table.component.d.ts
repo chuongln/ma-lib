@@ -1,4 +1,4 @@
-import { EventEmitter, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
 import { PaginatorState } from 'primeng/paginator';
 import { Observable } from 'rxjs';
 import { Column, ISearchListInput } from './table.interface';
@@ -6,6 +6,7 @@ import { MaService } from '../../ma-lib.service';
 import * as i0 from "@angular/core";
 export declare class TableComponent implements OnDestroy {
     private maService;
+    private cdr;
     datas: any[];
     havePaginator: boolean;
     cols: Column[];
@@ -31,7 +32,7 @@ export declare class TableComponent implements OnDestroy {
     isLoading: boolean;
     totalWidth: number;
     templateCellTemplate: TemplateRef<any>;
-    constructor(maService: MaService);
+    constructor(maService: MaService, cdr: ChangeDetectorRef);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     onPageChange(event: PaginatorState): void;
@@ -41,6 +42,7 @@ export declare class TableComponent implements OnDestroy {
     onRowSelect(event: any): void;
     ngOnDestroy(): void;
     calculateColumnWidths(): void;
+    checkWithSelectAll(event: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<TableComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<TableComponent, "app-table", never, { "datas": { "alias": "datas"; "required": false; }; "havePaginator": { "alias": "havePaginator"; "required": false; }; "cols": { "alias": "cols"; "required": false; }; "autoSearchAfterViewInit": { "alias": "autoSearchAfterViewInit"; "required": false; }; "selectionMode": { "alias": "selectionMode"; "required": false; }; "inputSearch": { "alias": "inputSearch"; "required": false; }; "scrollHeight": { "alias": "scrollHeight"; "required": false; }; "getList$": { "alias": "getList$"; "required": false; }; "placeFooter": { "alias": "placeFooter"; "required": false; }; }, { "onRowSelected": "onRowSelected"; }, ["templateCellTemplate"], ["[footer]", "[footer]"], true, never>;
 }
