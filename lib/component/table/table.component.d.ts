@@ -17,6 +17,7 @@ export declare class TableComponent implements OnDestroy {
     getList$: (input: ISearchListInput) => Observable<any>;
     placeFooter: 'bottom' | 'top';
     onRowSelected: EventEmitter<any>;
+    selectViewDetailMode: boolean;
     selectedRow: any;
     offset: number;
     limit: number;
@@ -44,5 +45,5 @@ export declare class TableComponent implements OnDestroy {
     calculateColumnWidths(): void;
     checkWithSelectAll(event: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<TableComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<TableComponent, "app-table", never, { "datas": { "alias": "datas"; "required": false; }; "havePaginator": { "alias": "havePaginator"; "required": false; }; "cols": { "alias": "cols"; "required": false; }; "autoSearchAfterViewInit": { "alias": "autoSearchAfterViewInit"; "required": false; }; "selectionMode": { "alias": "selectionMode"; "required": false; }; "inputSearch": { "alias": "inputSearch"; "required": false; }; "scrollHeight": { "alias": "scrollHeight"; "required": false; }; "getList$": { "alias": "getList$"; "required": false; }; "placeFooter": { "alias": "placeFooter"; "required": false; }; }, { "onRowSelected": "onRowSelected"; }, ["templateCellTemplate"], ["[footer]", "[footer]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<TableComponent, "app-table", never, { "datas": { "alias": "datas"; "required": false; }; "havePaginator": { "alias": "havePaginator"; "required": false; }; "cols": { "alias": "cols"; "required": false; }; "autoSearchAfterViewInit": { "alias": "autoSearchAfterViewInit"; "required": false; }; "selectionMode": { "alias": "selectionMode"; "required": false; }; "inputSearch": { "alias": "inputSearch"; "required": false; }; "scrollHeight": { "alias": "scrollHeight"; "required": false; }; "getList$": { "alias": "getList$"; "required": false; }; "placeFooter": { "alias": "placeFooter"; "required": false; }; "selectViewDetailMode": { "alias": "selectViewDetailMode"; "required": false; }; "selectedRow": { "alias": "selectedRow"; "required": false; }; }, { "onRowSelected": "onRowSelected"; }, ["templateCellTemplate"], ["[footer]", "[footer]"], true, never>;
 }
