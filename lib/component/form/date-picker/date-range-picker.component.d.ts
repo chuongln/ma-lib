@@ -23,7 +23,7 @@ export declare class DateRangePickerComponent extends BaseControlValueAccessor i
     viewDate(): void;
     applyDateRange(): void;
     onTimeChange(): void;
-    formatDate(date: Date): string;
+    formatDate(date: Date, time: string): string;
     selectTimeInterval(interval: string): void;
     intervals: {
         key: string;
